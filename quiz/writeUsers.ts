@@ -1,13 +1,12 @@
 import express, { Response } from "express";
 import fs from "fs";
 import path from "path";
-import { User, UserRequest, addMsgToRequest } from "./server";
+import { dataFile, users } from "./server4";
+import { User, UserRequest } from "./types";
 
 const router = express.Router();
 
-router.use("/write/adduser", addMsgToRequest);
-
-router.post("/write/adduser", (req: UserRequest, res: Response) => {
+router.post("/adduser", (req: UserRequest, res: Response) => {
     let newuser = req.body as User;
     users.push(newuser);
     fs.writeFile(
@@ -20,3 +19,5 @@ router.post("/write/adduser", (req: UserRequest, res: Response) => {
     );
     res.send("done");
 });
+
+export default router;
